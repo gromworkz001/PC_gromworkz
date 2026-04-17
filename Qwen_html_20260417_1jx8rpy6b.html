@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ГРОМВОРКС — Игровые и рабочие ПК на заказ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-primary: #0b0b10;
+            --bg-secondary: #13131c;
+            --bg-card: #1a1a26;
+            --accent: #00e5ff;
+            --accent-hover: #00b8cc;
+            --text-main: #ffffff;
+            --text-muted: #8a8a9e;
+            --border: #2a2a3a;
+            --gradient: linear-gradient(135deg, #00e5ff 0%, #7b2cbf 100%);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* HEADER */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(11, 11, 16, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 900;
+            letter-spacing: 1px;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .nav-links { display: flex; gap: 2rem; }
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover { color: var(--accent); }
+        .nav-btn {
+            background: var(--accent);
+            color: #000;
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .nav-btn:hover { background: var(--accent-hover); }
+
+        /* HERO */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 8rem 1.5rem 4rem;
+            background: radial-gradient(circle at 50% 30%, rgba(0,229,255,0.15) 0%, transparent 60%);
+        }
+        .hero-content h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+        .hero-content p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 650px;
+            margin: 0 auto 2.5rem;
+        }
+        .hero-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+        .btn {
+            padding: 0.9rem 2rem;
+            border-radius: 8px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: none;
+        }
+        .btn-primary { background: var(--accent); color: #000; }
+        .btn-primary:hover { background: var(--accent-hover); transform: translateY(-2px); }
+        .btn-outline { background: transparent; border: 2px solid var(--accent); color: var(--accent); }
+        .btn-outline:hover { background: var(--accent); color: #000; }
+
+        /* CATALOG */
+        .section { padding: 5rem 1.5rem; max-width: 1200px; margin: 0 auto; }
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 3rem;
+            font-weight: 800;
+        }
+        .catalog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        .pc-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+        .pc-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+        .pc-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            background: #1f1f2e;
+            margin-bottom: 1rem;
+        }
+        .pc-card h3 { font-size: 1.3rem; margin-bottom: 0.5rem; }
+        .pc-card .price { color: var(--accent); font-size: 1.4rem; font-weight: 700; margin: 0.5rem 0; }
+        .pc-card .specs { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem; }
+        .pc-card .btn { width: 100%; text-align: center; }
+
+        /* CONFIGURATOR MOCKUP */
+        .configurator {
+            background: var(--bg-secondary);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+        .config-steps {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        .config-step {
+            background: var(--bg-card);
+            padding: 0.8rem 1.2rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .config-step.active {
+            border-color: var(--accent);
+            background: rgba(0,229,255,0.1);
+        }
+        .config-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+        @media (max-width: 768px) { .config-form { grid-template-columns: 1fr; } }
+        .form-group label { display: block; margin-bottom: 0.5rem; color: var(--text-muted); }
+        .form-group select, .form-group input {
+            width: 100%;
+            padding: 0.8rem;
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--text-main);
+            font-family: inherit;
+        }
+        .config-summary {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            text-align: right;
+        }
+
+        /* FEATURES */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        .feature {
+            text-align: center;
+            padding: 2rem 1rem;
+            background: var(--bg-card);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+        .feature i { font-size: 2rem; color: var(--accent); margin-bottom: 1rem; }
+        .feature h3 { margin-bottom: 0.5rem; }
+        .feature p { color: var(--text-muted); font-size: 0.95rem; }
+
+        /* FOOTER */
+        footer {
+            background: var(--bg-secondary);
+            padding: 4rem 1.5rem 2rem;
+            border-top: 1px solid var(--border);
+            margin-top: 5rem;
+        }
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+        }
+        .footer-col h4 { margin-bottom: 1.5rem; color: var(--accent); }
+        .footer-col a { display: block; color: var(--text-muted); text-decoration: none; margin-bottom: 0.8rem; transition: color 0.2s; }
+        .footer-col a:hover { color: var(--text-main); }
+        .copyright {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* MOBILE NAV */
+        .mobile-toggle { display: none; background: none; border: none; color: var(--text-main); font-size: 1.5rem; cursor: pointer; }
+        @media (max-width: 768px) {
+            .nav-links, .nav-btn { display: none; }
+            .mobile-toggle { display: block; }
+            .nav-links.active {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--bg-secondary);
+                padding: 1rem;
+                border-bottom: 1px solid var(--border);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-container">
+            <div class="logo">ГРОМВОРКС</div>
+            <button class="mobile-toggle" onclick="document.querySelector('.nav-links').classList.toggle('active')">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <nav class="nav-links">
+                <a href="#catalog">Каталог</a>
+                <a href="#config">Конфигуратор</a>
+                <a href="#features">Преимущества</a>
+                <a href="#contacts">Контакты</a>
+            </nav>
+            <a href="#config" class="nav-btn">Собрать ПК</a>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Собираем ПК под твою вселенную</h1>
+            <p>От компактных сборок под CS2 до монстров для Cyberpunk 2077 и Stalker 2. Кастомная вода, СЖО, ПК в столе и настенные решения. Без лишнего маркетинга. Только железо и стиль.</p>
+            <div class="hero-buttons">
+                <a href="#catalog" class="btn btn-primary">Готовые сборки</a>
+                <a href="#config" class="btn btn-outline">Конфигуратор</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="catalog" class="section">
+        <h2 class="section-title">Популярные решения</h2>
+        <div class="catalog-grid">
+            <div class="pc-card">
+                <div style="height:200px;background:#1f1f2e;border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--text-muted)">[Изображение ПК]</div>
+                <h3>CS2 PRO</h3>
+                <div class="specs">i5-13400F | RTX 4060 | 32GB DDR5 | 1TB NVMe</div>
+                <div class="price">от 89 000 ₽</div>
+                <button class="btn btn-outline">Заказать</button>
+            </div>
+            <div class="pc-card">
+                <div style="height:200px;background:#1f1f2e;border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--text-muted)">[Изображение ПК]</div>
+                <h3>CYBERPUNK 2077 ULTRA</h3>
+                <div class="specs">i7-14700K | RTX 4080 SUPER | 64GB DDR5 | 2TB NVMe</div>
+                <div class="price">от 245 000 ₽</div>
+                <button class="btn btn-outline">Заказать</button>
+            </div>
+            <div class="pc-card">
+                <div style="height:200px;background:#1f1f2e;border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--text-muted)">[Изображение ПК]</div>
+                <h3>STALKER 2 ATMOSPHERE</h3>
+                <div class="specs">Ryzen 7 7800X3D | RX 7900 XT | 32GB DDR5 | СВО 360</div>
+                <div class="price">от 198 000 ₽</div>
+                <button class="btn btn-outline">Заказать</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="config" class="section">
+        <h2 class="section-title">Конфигуратор ГРОМВОРКС</h2>
+        <div class="configurator">
+            <div class="config-steps">
+                <div class="config-step active">1. Бюджет</div>
+                <div class="config-step">2. Задачи</div>
+                <div class="config-step">3. Охлаждение</div>
+                <div class="config-step">4. Корпус</div>
+            </div>
+            <div class="config-form">
+                <div class="form-group">
+                    <label>Бюджет</label>
+                    <select>
+                        <option>до 100 000 ₽</option>
+                        <option>100–150 000 ₽</option>
+                        <option>150–250 000 ₽</option>
+                        <option>250 000+ ₽</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Основные игры</label>
+                    <input type="text" placeholder="Например: Cyberpunk, CS2, Stalker 2">
+                </div>
+                <div class="form-group">
+                    <label>Охлаждение</label>
+                    <select>
+                        <option>Башенный кулер</option>
+                        <option>Готовая СВО (240/360)</option>
+                        <option>Кастомная СЖО</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Форм-фактор</label>
+                    <select>
+                        <option>Стандартный ATX</option>
+                        <option>Компактный ITX</option>
+                        <option>ПК в столе</option>
+                        <option>Настенный</option>
+                    </select>
+                </div>
+            </div>
+            <div class="config-summary">
+                <p style="color:var(--text-muted);margin-bottom:1rem;">Итоговая смета рассчитывается индивидуально. Мы свяжемся в течение 2 часов.</p>
+                <button class="btn btn-primary" onclick="alert('Заявка отправлена! (Демо)')">Получить сборку</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="section">
+        <h2 class="section-title">Почему ГРОМВОРКС</h2>
+        <div class="features-grid">
+            <div class="feature">
+                <i class="fa-solid fa-screwdriver-wrench"></i>
+                <h3>Чистая сборка</h3>
+                <p>Идеальный кабель-менеджмент, стресс-тесты 12 часов, фотоотчёт до отправки.</p>
+            </div>
+            <div class="feature">
+                <i class="fa-solid fa-droplet"></i>
+                <h3>СВО и СЖО под ключ</h3>
+                <p>Готовые системы и кастомные контуры. Тест на герметичность, промывка, заправка.</p>
+            </div>
+            <div class="feature">
+                <i class="fa-solid fa-shield-halved"></i>
+                <h3>Гарантия 12 мес.</h3>
+                <p>На работу и совместимость. Железо — по гарантии производителя. Поддержка после покупки.</p>
+            </div>
+            <div class="feature">
+                <i class="fa-solid fa-gamepad"></i>
+                <h3>Тематические сборки</h3>
+                <p>Цветовые схемы, наклейки, гравировки и RGB-сценарии под конкретную игру.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contacts">
+        <div class="footer-content">
+            <div class="footer-col">
+                <h4>ГРОМВОРКС</h4>
+                <p style="color:var(--text-muted)">Собираем железо, которое работает так же круто, как выглядит.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Навигация</h4>
+                <a href="#catalog">Каталог</a>
+                <a href="#config">Конфигуратор</a>
+                <a href="#features">Преимущества</a>
+            </div>
+            <div class="footer-col">
+                <h4>Контакты</h4>
+                <a href="mailto:order@gromworks.ru">order@gromworks.ru</a>
+                <a href="#">Telegram: @gromworks_pc</a>
+                <a href="#">WhatsApp</a>
+            </div>
+            <div class="footer-col">
+                <h4>Документы</h4>
+                <a href="#">Договор оферты</a>
+                <a href="#">Гарантийные условия</a>
+                <a href="#">Политика конфиденциальности</a>
+            </div>
+        </div>
+        <div class="copyright">© 2024 ГРОМВОРКС. Все права защищены.</div>
+    </footer>
+
+    <script>
+        // Простая логика переключения шагов конфигуратора (демо)
+        document.querySelectorAll('.config-step').forEach(step => {
+            step.addEventListener('click', () => {
+                document.querySelectorAll('.config-step').forEach(s => s.classList.remove('active'));
+                step.classList.add('active');
+            });
+        });
+
+        // Плавный скролл
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+    </script>
+</body>
+</html>
